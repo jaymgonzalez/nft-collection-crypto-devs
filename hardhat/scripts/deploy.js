@@ -8,9 +8,9 @@ async function main() {
   // URL from where we can extract the metadata for a Crypto Dev NFT
   const metadataURL = METADATA_URL
   /*
-   A ContractFactory in ethers.js is an abstraction used to deploy new smart contracts,
-   so cryptoDevsContract here is a factory for instances of our CryptoDevs contract.
-   */
+  A ContractFactory in ethers.js is an abstraction used to deploy new smart contracts,
+  so cryptoDevsContract here is a factory for instances of our CryptoDevs contract.
+  */
   const cryptoDevsContract = await ethers.getContractFactory('CryptoDevs')
 
   // deploy the contract
@@ -26,9 +26,10 @@ async function main() {
   )
 }
 
+// Call the main function and catch if there is any error
 main()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error)
-    process.exitCode = 1
+    process.exit(1)
   })

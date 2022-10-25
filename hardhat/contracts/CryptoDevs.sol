@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
@@ -54,7 +54,6 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
     /**
      * @dev startPresale starts a presale for the whitelisted addresses
      */
-
     function startPresale() public onlyOwner {
         presaleStarted = true;
         // Set presaleEnded time as current timestamp + 5 minutes
@@ -74,8 +73,8 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
             whitelist.whitelistedAddresses(msg.sender),
             "You are not whitelisted"
         );
-        require(tokenIds < maxTokenIds, "Exceded token supply");
-        require(msg.value >= _price, "Amount sent is not correct");
+        require(tokenIds < maxTokenIds, "Exceeded maximum Crypto Devs supply");
+        require(msg.value >= _price, "Ether sent is not correct");
         tokenIds += 1;
         //_safeMint is a safer version of the _mint function as it ensures that
         // if the address being minted to is a contract, then it knows how to deal with ERC721 tokens
@@ -86,7 +85,6 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
     /**
      * @dev mint allows a user to mint 1 NFT per transaction after the presale has ended.
      */
-
     function mint() public payable onlyWhenNotPaused {
         require(
             presaleStarted && block.timestamp >= presaleEnded,
@@ -102,7 +100,6 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
      * @dev _baseURI overides the Openzeppelin's ERC721 implementation which by default
      * returned an empty string for the baseURI
      */
-
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseTokenURI;
     }
@@ -122,7 +119,7 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
         address _owner = owner();
         uint256 amount = address(this).balance;
         (bool sent, ) = _owner.call{value: amount}("");
-        require(sent, "Failed to send ether in contract");
+        require(sent, "Failed to send Ether");
     }
 
     // Function to receive Ether. msg.data must be empty
